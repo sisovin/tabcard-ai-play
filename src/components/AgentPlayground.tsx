@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Send, X, BookOpen, MessageSquare } from "lucide-react";
+import { Loader2, Send, X, BookOpen, MessageSquare, Cpu } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface AgentPlaygroundProps {
@@ -32,7 +32,7 @@ export const AgentPlayground = ({ agent, onClose }: AgentPlaygroundProps) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "llama2",
+          model: agent.model,
           prompt: `${agent.ollamaPrompt}\n\nUser: ${userMessage}\n\nAssistant:`,
           stream: false,
         }),
@@ -98,9 +98,15 @@ export const AgentPlayground = ({ agent, onClose }: AgentPlaygroundProps) => {
           </div>
 
           <div className="border-t pt-4">
-            <div className="flex items-center gap-2 mb-4">
-              <MessageSquare className="h-5 w-5 text-primary" />
-              <h3 className="font-semibold text-lg">Try It with Ollama</h3>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <MessageSquare className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold text-lg">Try It with Ollama</h3>
+              </div>
+              <Badge variant="outline" className="flex items-center gap-1">
+                <Cpu className="h-3 w-3" />
+                {agent.model}
+              </Badge>
             </div>
             
             <div className="space-y-4 mb-4 max-h-64 overflow-y-auto">

@@ -8,6 +8,7 @@ export interface Agent {
   color: string;
   topics: string[];
   ollamaPrompt: string;
+  model: string;
 }
 
 export const agents: Agent[] = [
@@ -20,7 +21,8 @@ export const agents: Agent[] = [
     description: "Learn how to build multi-agent systems with memory capabilities using CrewAI framework.",
     color: "hsl(var(--agent-1))",
     topics: ["Multi-Agent Systems", "Memory Management", "CrewAI", "Agent Orchestration"],
-    ollamaPrompt: "You are an AI agent expert specialized in multi-agent systems and memory management. Help users understand how agents can maintain context and work together."
+    ollamaPrompt: "You are an AI agent expert specialized in multi-agent systems and memory management. Help users understand how agents can maintain context and work together.",
+    model: "llama2"
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ export const agents: Agent[] = [
     description: "Master prompt engineering techniques with AWS best practices and real-world examples.",
     color: "hsl(var(--agent-2))",
     topics: ["Prompt Design", "AWS Services", "Best Practices", "Optimization"],
-    ollamaPrompt: "You are a prompt engineering expert. Guide users on crafting effective prompts and understanding how LLMs interpret instructions."
+    ollamaPrompt: "You are a prompt engineering expert. Guide users on crafting effective prompts and understanding how LLMs interpret instructions.",
+    model: "mistral"
   },
   {
     id: 3,
@@ -42,7 +45,8 @@ export const agents: Agent[] = [
     description: "Build stateful, graph-based AI agents with LangGraph for complex workflows.",
     color: "hsl(var(--agent-3))",
     topics: ["LangGraph", "State Management", "Graph Architecture", "Workflows"],
-    ollamaPrompt: "You are a LangGraph specialist. Explain how to build graph-based agent workflows and manage complex state transitions."
+    ollamaPrompt: "You are a LangGraph specialist. Explain how to build graph-based agent workflows and manage complex state transitions.",
+    model: "codellama"
   },
   {
     id: 4,
@@ -53,7 +57,8 @@ export const agents: Agent[] = [
     description: "Comprehensive course on LLM agent fundamentals and advanced capabilities.",
     color: "hsl(var(--agent-4))",
     topics: ["LLM Fundamentals", "Agent Design", "Capabilities", "Limitations"],
-    ollamaPrompt: "You are an LLM agent educator. Teach core concepts of how language models can act as intelligent agents."
+    ollamaPrompt: "You are an LLM agent educator. Teach core concepts of how language models can act as intelligent agents.",
+    model: "llama2"
   },
   {
     id: 5,
@@ -64,7 +69,8 @@ export const agents: Agent[] = [
     description: "Practical guide to implementing AI agents using LangGraph framework.",
     color: "hsl(var(--agent-5))",
     topics: ["LangGraph Implementation", "Practical Examples", "Agent Patterns", "Integration"],
-    ollamaPrompt: "You are a LangGraph implementation expert. Show users how to build practical AI agents with real-world applications."
+    ollamaPrompt: "You are a LangGraph implementation expert. Show users how to build practical AI agents with real-world applications.",
+    model: "codellama"
   },
   {
     id: 6,
@@ -75,7 +81,8 @@ export const agents: Agent[] = [
     description: "Master Retrieval-Augmented Generation (RAG) with NVIDIA's advanced techniques.",
     color: "hsl(var(--agent-6))",
     topics: ["RAG Architecture", "Vector Databases", "Retrieval Systems", "NVIDIA Tools"],
-    ollamaPrompt: "You are a RAG specialist. Explain how to build retrieval-augmented generation systems for grounded AI responses."
+    ollamaPrompt: "You are a RAG specialist. Explain how to build retrieval-augmented generation systems for grounded AI responses.",
+    model: "mistral"
   },
   {
     id: 7,
@@ -86,7 +93,8 @@ export const agents: Agent[] = [
     description: "Explore design patterns for building robust multi-agent systems with AutoGen.",
     color: "hsl(var(--agent-7))",
     topics: ["AutoGen Framework", "Design Patterns", "Multi-Agent", "Architecture"],
-    ollamaPrompt: "You are an AutoGen expert. Guide users through agentic design patterns and multi-agent orchestration."
+    ollamaPrompt: "You are an AutoGen expert. Guide users through agentic design patterns and multi-agent orchestration.",
+    model: "llama2"
   },
   {
     id: 8,
@@ -97,7 +105,8 @@ export const agents: Agent[] = [
     description: "Deep dive into agent memory systems and how LLMs manage context.",
     color: "hsl(var(--agent-8))",
     topics: ["Memory Systems", "Context Management", "Long-term Memory", "Agent State"],
-    ollamaPrompt: "You are an agent memory expert. Explain how AI agents maintain and utilize memory for coherent interactions."
+    ollamaPrompt: "You are an agent memory expert. Explain how AI agents maintain and utilize memory for coherent interactions.",
+    model: "neural-chat"
   },
   {
     id: 9,
@@ -108,6 +117,7 @@ export const agents: Agent[] = [
     description: "Build advanced RAG systems with agentic capabilities using LlamaIndex.",
     color: "hsl(var(--agent-9))",
     topics: ["LlamaIndex", "Agentic RAG", "Query Engines", "Document Processing"],
-    ollamaPrompt: "You are a LlamaIndex specialist. Show users how to build intelligent RAG systems with agentic behaviors."
+    ollamaPrompt: "You are a LlamaIndex specialist. Show users how to build intelligent RAG systems with agentic behaviors.",
+    model: "mistral"
   }
 ];
