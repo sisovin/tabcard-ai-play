@@ -1,24 +1,73 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { agents } from "@/types/agent";
 import { CourseCard } from "@/components/CourseCard";
 import { AgentPlayground } from "@/components/AgentPlayground";
+import { Auth } from "@/components/Auth";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Bot, Zap } from "lucide-react";
+import { BookOpen, Bot, Zap, LogOut } from "lucide-react";
 import type { Agent } from "@/types/agent";
+import { supabase } from "@/integrations/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 const Index = () => {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Auth />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header Banner */}
       <header className="bg-[hsl(var(--header-bg))] text-black py-12 px-4 sm:px-6 lg:px-8 border-b-4 border-black/10">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4">
-            Learn How to Build AI Agent
-            <br />
-            Start With These 9 Free Courses
-          </h1>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex-1 text-center">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4">
+                Learn How to Build AI Agent
+                <br />
+                Start With These 9 Free Courses
+              </h1>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSignOut}
+              className="bg-white/10 border-black/20 hover:bg-white/20"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
+          </div>
           <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
             <div className="flex items-center gap-2 text-sm font-semibold">
               <Bot className="h-5 w-5" />
@@ -33,6 +82,11 @@ const Index = () => {
               <span>Interactive Learning</span>
             </div>
           </div>
+          {user && (
+            <p className="text-center text-sm mt-4 opacity-75">
+              Welcome back, {user.email}
+            </p>
+          )}
         </div>
       </header>
 
@@ -99,9 +153,10 @@ const Index = () => {
 
       {/* Playground Modal */}
       {selectedAgent && (
-        <AgentPlayground
-          agent={selectedAgent}
+        <AgentPlayground 
+          agent={selectedAgent} 
           onClose={() => setSelectedAgent(null)}
+          userId={user?.id}
         />
       )}
     </div>
