@@ -1,49 +1,15 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { Auth } from "@/components/Auth";
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CourseCard } from "@/components/CourseCard";
 import { AgentPlayground } from "@/components/AgentPlayground";
 import { agents } from "@/types/agent";
 import type { Agent } from "@/types/agent";
-import { User } from "@supabase/supabase-js";
+import { useAuth } from "@/lib/auth-context";
 
 const Index = () => {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Auth />;
-  }
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -53,7 +19,7 @@ const Index = () => {
         <AgentPlayground 
           agent={selectedAgent} 
           onClose={() => setSelectedAgent(null)}
-          userId={user?.id}
+          userId={user?.id || undefined}
         />
       ) : (
         <>
@@ -63,11 +29,8 @@ const Index = () => {
                 <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                   Learn How to Build AI Agents
                 </h1>
-                <p className="text-xl text-muted-foreground mb-2">
+                <p className="text-xl text-muted-foreground">
                   Start With These 9 Free Courses
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Welcome back, {user?.email}
                 </p>
               </div>
 
