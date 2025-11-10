@@ -85,6 +85,60 @@ export type Database = {
         }
         Relationships: []
       }
+      user_settings: {
+        Row: {
+          ai_max_tokens: number
+          ai_model: Database["public"]["Enums"]["ai_model_preference"]
+          ai_temperature: number
+          auto_save_progress: boolean
+          created_at: string
+          email_notifications: boolean
+          id: string
+          language: Database["public"]["Enums"]["language_preference"]
+          marketing_emails: boolean
+          privacy_mode: boolean
+          push_notifications: boolean
+          show_achievements: boolean
+          theme: Database["public"]["Enums"]["theme_preference"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_max_tokens?: number
+          ai_model?: Database["public"]["Enums"]["ai_model_preference"]
+          ai_temperature?: number
+          auto_save_progress?: boolean
+          created_at?: string
+          email_notifications?: boolean
+          id?: string
+          language?: Database["public"]["Enums"]["language_preference"]
+          marketing_emails?: boolean
+          privacy_mode?: boolean
+          push_notifications?: boolean
+          show_achievements?: boolean
+          theme?: Database["public"]["Enums"]["theme_preference"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_max_tokens?: number
+          ai_model?: Database["public"]["Enums"]["ai_model_preference"]
+          ai_temperature?: number
+          auto_save_progress?: boolean
+          created_at?: string
+          email_notifications?: boolean
+          id?: string
+          language?: Database["public"]["Enums"]["language_preference"]
+          marketing_emails?: boolean
+          privacy_mode?: boolean
+          push_notifications?: boolean
+          show_achievements?: boolean
+          theme?: Database["public"]["Enums"]["theme_preference"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -93,7 +147,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ai_model_preference:
+        | "gemini-2.5-flash"
+        | "gemini-2.5-pro"
+        | "gpt-5-mini"
+        | "gpt-5"
+      language_preference: "EN" | "ES" | "FR" | "DE" | "ZH"
+      theme_preference: "LIGHT" | "DARK" | "SYSTEM"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -220,6 +280,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ai_model_preference: [
+        "gemini-2.5-flash",
+        "gemini-2.5-pro",
+        "gpt-5-mini",
+        "gpt-5",
+      ],
+      language_preference: ["EN", "ES", "FR", "DE", "ZH"],
+      theme_preference: ["LIGHT", "DARK", "SYSTEM"],
+    },
   },
 } as const
